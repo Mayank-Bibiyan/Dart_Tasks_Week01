@@ -13,7 +13,7 @@ class Student {
     this.marks,
   );
 
-  // Validate marks
+  // Validate Marks
   bool validateMarks() {
     for (double mark in marks.values) {
       if (mark < 0 || mark > 100) {
