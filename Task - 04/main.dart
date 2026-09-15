@@ -42,7 +42,7 @@ class Student {
     return (total / maximumMarks) * 100;
   }
 
-  // Determine pass/fail status
+  // Determine pass/fail
   bool isPassed() {
     return calculatePercentage() >= 40;
   }
@@ -68,7 +68,7 @@ class Student {
     }
   }
 
-  // Display student result
+  // Display student details
   void displayDetails() {
     print("Name: $name");
     print("Roll Number: $rollNumber");
@@ -80,10 +80,8 @@ class Student {
       print("$subject: $mark");
     });
 
-    // Check for invalid marks
     if (!validateMarks()) {
       print("Error: Invalid marks! Marks must be between 0 and 100.");
-      print("-----------------------------");
       return;
     }
 
@@ -91,50 +89,88 @@ class Student {
     print("Percentage: ${calculatePercentage()}%");
     print("Grade: ${calculateGrade()}");
     print("Status: ${isPassed() ? "Pass" : "Fail"}");
-
-    print("-----------------------------");
   }
 }
 
-void main() {
-  Student student1 = Student(
-    "Mayank",
-    101,
-    "B.Tech CSE",
-    19,
-    {
-      "Maths": 85,
-      "Physics": 78,
-      "Programming": 92,
-    },
-  );
+// Search for a student using roll number
+Student? searchStudent(List<Student> students, int rollNumber) {
+  for (Student student in students) {
+    if (student.rollNumber == rollNumber) {
+      return student;
+    }
+  }
 
-  Student student2 = Student(
-    "Vishu",
-    102,
-    "B.Tech IT",
-    21,
-    {
-      "Maths": 35,
-      "Physics": 42,
-      "Programming": 38,
-    },
-  );
-
-  
-  Student student3 = Student(
-    "Shivam",
-    103,
-    "BCA",
-    18,
-    {
-      "Maths": 110, // Invalid mark
-      "Physics": 75,
-      "Programming": 80,
-    },
-  );
-
-  student1.displayDetails();
-  student2.displayDetails();
-  student3.displayDetails();
+  return null;
 }
+
+void main() {
+  // Create multiple student objects
+  List<Student> students = [
+    Student(
+      "Rahul",
+      101,
+      "B.Tech CSE",
+      20,
+      {
+        "Maths": 85,
+        "Physics": 78,
+        "Programming": 92,
+      },
+    ),
+    Student(
+      "Priya",
+      102,
+      "B.Tech IT",
+      21,
+      {
+        "Maths": 90,
+        "Physics": 88,
+        "Programming": 95,
+      },
+    ),
+    Student(
+      "Aman",
+      103,
+      "BCA",
+      20,
+      {
+        "Maths": 65,
+        "Physics": 72,
+        "Programming": 68,
+      },
+    ),
+  ];
+
+  // Display all students
+  print("===== All Students =====");
+
+  for (Student student in students) {
+    student.displayDetails();
+    print("-----------------------------");
+  }
+
+  // Search for a student
+  int rollNumberToSearch = 102;
+
+  Student? result = searchStudent(students, rollNumberToSearch);
+
+  if (result != null) {
+    print("===== Student Found =====");
+    result.displayDetails();
+  } else {
+    print("Student with roll number $rollNumberToSearch does not exist.");
+  }
+
+  // Search for a non-existent student
+  int invalidRollNumber = 110;
+
+  Student? notFound = searchStudent(students, invalidRollNumber);
+
+  if (notFound != null) {
+    print("===== Student Found =====");
+    notFound.displayDetails();
+  } else {
+    print("Student with roll number $invalidRollNumber does not exist.");
+  }
+}
+
