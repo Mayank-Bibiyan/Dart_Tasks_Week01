@@ -14,7 +14,7 @@ class Student {
     required this.marks,
   });
 
-  // Named constructor
+  // Named constructor for creating a student without marks
   Student.withoutMarks({
     required this.name,
     required this.rollNumber,
