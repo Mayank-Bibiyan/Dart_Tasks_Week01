@@ -1,1 +1,0 @@
- Student s = Student("Mayank", 19);
